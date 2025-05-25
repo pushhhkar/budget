@@ -1,0 +1,89 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(245, 245, 220, 0.388);
+    font-family: "poppins", sans-serif;
+
+}
+.container{
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: gray;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px #000;
+    overflow-x: hidden;
+
+}
+
+.container h2 {
+    padding: 2rem 0;
+    font-size: 4rem;
+    text-align: center;
+    color: #0f1344;
+}
+
+.error_message{
+    background-color: red;
+    color: aqua;
+    text-align: center;
+    padding: 1rem 0;
+    width: 650px;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: none;
+
+}
+
+.budget_content {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.your_budget form input, .your_expenses form input{
+    padding: 0.4rem 1rem;
+    width: 300px;
+    border: 1px solid rgba(245, 245, 220, 0.388);
+    font-family: inherit;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    border-radius: 3px;
+}
+.your_budget form input:focus, .your_expenses form input:focus{
+    outline: none;
+}
+
+.your_budget form, .your_expenses form {
+    position: relative;
+}
+
+.budget_content .btn{
+    position: absolute;
+    right: 0;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    padding: 0.6rem 1rem;
+    color: #0f1344;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+    background-color: #88bbeb;
+
+}
+
+.budget_content .btn:active{
+    transform: scale(0.98);
+}
