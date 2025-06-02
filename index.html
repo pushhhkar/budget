@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
+     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script defer src ="budjet.js"></script>
     <title>Budget app to track your expenses</title>
 </head>
@@ -25,12 +26,50 @@
             <form>
                 <label for="expenses">Expense Detail :</label>
                 <input type="text" placeholder="Enter your expenses detail" class="expense_input" required>
-                <input type="number" placeholder="Enter your expenses Amount in Rs" class="expense_amount" min="1" required>
+                <input type="number" placeholder="expenses Amount(Rs)" class="expense_amount" min="1" required>
                 <button class="btn" id="btn_expenses">Add expenses</button>
             </form>
         </div>
         </div>
+<ul class="cards">
+    <li>
+        <i class="bx bx-money"></i>
+        <span class = "info">
+            <h3><span>Rs </span><span class="budget_card">7,373</span></h3>
+            <p>Budget</p>
+        </span>
+    </li>
+    <li>
+        <i class="bx bx-credit-card"></i>
+        <span class="info">
+            <h3><span>Rs </span><span class="expenses-card">9,373</span></h3>
+            <p>Expenses</p>
+        </span>
+    </li>
+    <li>
+        <i class="bx bx-rupee"></i>
+        <span class="info">
+            <h3><span>Rs </span><span class="balance-card">3,373</span></h3>
+            <p>Balance</p>
+        </span>
+    </li>
+</ul>
+
+    <div class="table_content">
+        <h3>Budget Details</h3>
+        <div class="table_data">
+            <ul class = "tbl_tr_content">
+                <li>1</li>
+                <li>Gaming Mouse</li>
+                <li><span>Rs </span>1600</li>
+                <li>
+                    <button type="button" class="btn_edit">Edit</button>
+                    <button type="button" class="btn_delete">Delete</button>
+                </li>
+            </ul>
+        </div>
     </div>
-    
+
+    </div>   
 </body>
 </html>

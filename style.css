@@ -43,6 +43,11 @@ body {
 
 }
 
+.error_message.error{
+    display: block;
+    transition: all 0.8s ease-in;
+}
+
 .budget_content {
     padding: 2rem;
     display: flex;
@@ -86,4 +91,105 @@ body {
 
 .budget_content .btn:active{
     transform: scale(0.98);
+}
+
+.container .cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px, 1fr));
+    grid-gap: 1.5rem;
+    padding: 2rem;
+}
+
+.container .cards li{
+    padding: 1.8rem;
+    background-color: aliceblue;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.container .cards li:hover{
+    transform: translateY(-10px);
+}
+
+.container .cards li .bx{
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 10px;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .cards li:nth-child(1) .bx{
+    background-color: rgb(198, 227, 240);
+    color: #88bbeb;
+}
+.container .cards li:nth-child(2) .bx{
+    background-color: rgb(239, 176, 104);
+    color: #cd9a42;
+}
+.container .cards li:nth-child(3) .bx{
+    background-color: rgb(149, 219, 126);
+    color: #3d9c38;
+}
+
+.container .cards li .info h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0f1344;
+}
+.container .cards li .info p {
+    color: darkblue
+}
+
+
+.table_content{
+    padding: 2rem;
+    background-color:aliceblue;
+    margin: 1rem 2rem;
+    border-radius: 5px;
+}
+
+.table_content h3{
+    font-size:  2rem;
+    margin: 1rem 0;
+}
+
+.tbl_tr_content{
+    display: grid;
+    list-style-type: none ;
+    grid-template-columns: 1fr 50% 30% 2fr;
+    align-items: center;
+    background-color: darkgray;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+.table_data{
+    overflow-y: auto;
+    height: 150px;
+}
+.tbl_tr_content button{
+    outline: none;
+    border: none;
+    color: lightblue;
+    padding: 0.4rem;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: red;
+}
+
+.tbl_tr_content button:active{
+    transform: scale(0.96);
+}
+
+.tbl_tr_content button:first-child{
+    background-color: rgb(18, 134, 37);
 }
