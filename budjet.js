@@ -14,6 +14,21 @@ const balancecardEl = document.querySelector(".balance-card");
 let itemlist = [];
 let itemId = 0;
 
+function loadExpensesFromAPI() {
+    fetch("https://budget-backend-z56u.onrender.com/transactions/")
+        .then(res => res.json())
+        .then(data => {
+            itemlist = data.map((item) => ({
+                id: item.id,
+                title: item.title,
+                amount: item.amount
+            }));
+            tblrecordEl.innerHTML = ""; // clear table
+            itemlist.forEach(exp => addExpenses(exp));
+            showBalance();
+        });
+}
+
 function btnEvents() {
     const btnBudgetCal = document.querySelector('#btn_budget');
     const btnExpensesCal = document.querySelector('#btn_expenses');
@@ -28,7 +43,10 @@ function btnEvents() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", btnEvents);
+document.addEventListener("DOMContentLoaded", function () {
+    btnEvents();           
+    loadExpensesFromAPI(); 
+});
 
 function expensesFun() {
     let expensesDescvalue = ExpenseDesEl.value;
@@ -41,16 +59,21 @@ function expensesFun() {
         ExpenseAmountEl.value = "";
         ExpenseDesEl.value = "";
 
-        let expenses = {
-            id: itemId,
-            title: expensesDescvalue,
-            amount: amount,
-        };
-        itemId++;
-        itemlist.push(expenses);
 
-        addExpenses(expenses);
-        showBalance();
+        fetch("https://budget-backend-z56u.onrender.com/add_transaction/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: expensesDescvalue,
+                amount: amount,
+                type: "expense"
+            })
+        })
+        .then(res => res.json())
+        .then(() => {
+            loadExpensesFromAPI(); 
+        });
+
     }
 }
 
