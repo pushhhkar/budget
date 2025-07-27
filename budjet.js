@@ -5,28 +5,24 @@ const budgetInputEl = document.querySelector('.budget_input');
 const ExpenseDesEl = document.querySelector('.expense_input');
 const ExpenseAmountEl = document.querySelector('.expense_amount');
 const tblrecordEl = document.querySelector(".table_data");
-const cardscontainer = document.querySelector(".cards");
 
 const budgetcardEl = document.querySelector(".budget_card");
 const expensescardEl = document.querySelector(".expenses-card");
 const balancecardEl = document.querySelector(".balance-card");
 
 let itemlist = [];
-let itemId = 0;
 
 function loadExpensesFromAPI() {
-    fetch("https://budget-backend-z56u.onrender.com/transactions/")
-        .then(res => res.json())
-        .then(data => {
-            itemlist = data.map((item) => ({
-                id: item.id,
-                title: item.title,
-                amount: item.amount
-            }));
-            tblrecordEl.innerHTML = ""; // clear table
-            itemlist.forEach(exp => addExpenses(exp));
-            showBalance();
-        });
+    $.get("https://budget-backend-z56u.onrender.com/transactions/", function(data) {
+        itemlist = data.map(item => ({
+            id: item.id,
+            title: item.title,
+            amount: item.amount
+        }));
+        tblrecordEl.innerHTML = ""; 
+        itemlist.forEach(exp => addExpenses(exp));
+        showBalance();
+    });
 }
 
 function btnEvents() {
@@ -56,32 +52,32 @@ function expensesFun() {
         errorMessage("please Enter Expenses Desc or Expenses Amount!");
     } else {
         let amount = parseInt(expensesAmountValue);
+
+        // Clear inputs
         ExpenseAmountEl.value = "";
         ExpenseDesEl.value = "";
 
-
-        fetch("https://budget-backend-z56u.onrender.com/add_transaction/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+        $.ajax({
+            url: "https://budget-backend-z56u.onrender.com/add_transaction/",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
                 title: expensesDescvalue,
                 amount: amount,
                 type: "expense"
-            })
-        })
-        .then(res => res.json())
-        .then(() => {
-            loadExpensesFromAPI(); 
+            }),
+            success: function() {
+                loadExpensesFromAPI(); 
+            }
         });
-
     }
 }
 
-function addExpenses(expenesesPara) {
+function addExpenses(expense) {
     const html = `<ul class="tbl_tr_content">
-        <li data-id=${expenesesPara.id}>${expenesesPara.id}</li>
-        <li>${expenesesPara.title}</li>
-        <li><span>Rs </span>${expenesesPara.amount}</li>
+        <li data-id=${expense.id}>${expense.id}</li>
+        <li>${expense.title}</li>
+        <li><span>Rs </span>${expense.amount}</li>
         <li>
             <button type="button" class="btn_edit">Edit</button>
             <button type="button" class="btn_delete">Delete</button>
@@ -92,7 +88,6 @@ function addExpenses(expenesesPara) {
 
     const btnEdit = document.querySelectorAll('.btn_edit');
     const btnDel = document.querySelectorAll('.btn_delete');
-    const content_id = document.querySelectorAll('.tbl_tr_content');
 
     btnEdit.forEach((btnedit) => {
         btnedit.addEventListener("click", (el) => {
@@ -101,16 +96,11 @@ function addExpenses(expenesesPara) {
             let element = el.target.closest(".tbl_tr_content");
             element.remove();
 
-            let expenses = itemlist.filter(function (item) {
-                return item.id == id;
-            });
+            let expenses = itemlist.filter(item => item.id == id);
             ExpenseDesEl.value = expenses[0].title;
             ExpenseAmountEl.value = expenses[0].amount;
 
-            let templist = itemlist.filter(function (item) {
-                return item.id != id;
-            });
-            itemlist = templist;
+            itemlist = itemlist.filter(item => item.id != id);
             showBalance();
         });
     });
@@ -122,10 +112,7 @@ function addExpenses(expenesesPara) {
             let element = el.target.closest(".tbl_tr_content");
             element.remove();
 
-            let templist = itemlist.filter(function (item) {
-                return item.id != id;
-            });
-            itemlist = templist;
+            itemlist = itemlist.filter(item => item.id != id);
             showBalance();
         });
     });
@@ -153,10 +140,7 @@ function totalExpenses() {
     let total = 0;
 
     if (itemlist.length > 0) {
-        total = itemlist.reduce(function (acc, curr) {
-            acc += curr.amount;
-            return acc;
-        }, 0);
+        total = itemlist.reduce((acc, curr) => acc + curr.amount, 0);
     }
     expensescardEl.textContent = total;
     return total;
